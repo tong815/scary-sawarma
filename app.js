@@ -34,6 +34,19 @@ const taskList = document.querySelector("#taskList");
 const restartButton = document.querySelector("#restartButton");
 const mapButtons = document.querySelectorAll(".map-area");
 const game = document.querySelector(".game");
+const jumpScare = document.querySelector("#jumpScare");
+const jumpScareImage = document.querySelector("#jumpScareImage");
+
+// Images are loaded from images.js so paths are managed in one place.
+// This makes it easy to add or remove scary images later.
+const scaryImagePaths = GameAssets.images;
+
+function preloadScaryImages() {
+  scaryImagePaths.forEach(imagePath => {
+    const image = new Image();
+    image.src = imagePath;
+  });
+}
 
 function moveToLocation(location) {
   if (gameFinished) {
@@ -89,9 +102,41 @@ function checkScaryEvents() {
       if (fear > 100) {
         fear = 100;
       }
+
+      triggerJumpScare();
       return;
     }
   }
+}
+
+function getRandomScaryImage() {
+  if (scaryImagePaths.length === 0) {
+    return "";
+  }
+
+  // Math.random chooses a random image number.
+  // Math.floor changes it into a whole-number list position.
+  const randomIndex = Math.floor(Math.random() * scaryImagePaths.length);
+  return scaryImagePaths[randomIndex];
+}
+
+function triggerJumpScare() {
+  const imagePath = getRandomScaryImage();
+
+  if (!imagePath) {
+    return;
+  }
+
+  // The jump scare is a temporary full-screen layer.
+  // CSS handles the quick fade in, shake, red flash, and zoom effect.
+  jumpScareImage.src = imagePath;
+  jumpScare.classList.add("show");
+  document.body.classList.add("scare-active");
+
+  setTimeout(() => {
+    jumpScare.classList.remove("show");
+    document.body.classList.remove("scare-active");
+  }, 1000);
 }
 
 function checkWinOrLose() {
@@ -162,4 +207,5 @@ mapButtons.forEach(button => {
 
 restartButton.addEventListener("click", restartGame);
 
+preloadScaryImages();
 updateScreen();

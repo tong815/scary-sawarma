@@ -12,6 +12,10 @@ body {
     linear-gradient(135deg, #120f13, #241318 48%, #0b0b0d);
 }
 
+body.scare-active {
+  animation: screenShake 0.18s linear 4;
+}
+
 button {
   font: inherit;
 }
@@ -217,6 +221,92 @@ h2 {
 .game-over .restaurant-map,
 .game-over .task-list {
   opacity: 0.55;
+}
+
+.jump-scare {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0.82);
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.jump-scare.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.08s ease, visibility 0s;
+}
+
+.jump-scare img {
+  width: min(92vw, 920px);
+  max-height: 86vh;
+  object-fit: contain;
+  filter: contrast(1.15) saturate(1.2) drop-shadow(0 0 36px rgba(180, 0, 0, 0.75));
+  transform: scale(0.96);
+}
+
+.jump-scare.show img {
+  animation: scareZoom 1s ease both;
+}
+
+.jump-flash {
+  position: absolute;
+  inset: 0;
+  background: rgba(190, 0, 0, 0.42);
+  opacity: 0;
+}
+
+.jump-scare.show .jump-flash {
+  animation: redFlash 0.35s ease 2;
+}
+
+@keyframes scareZoom {
+  0% {
+    transform: scale(0.86);
+  }
+
+  45% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes redFlash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+}
+
+@keyframes screenShake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(7px, -4px);
+  }
+
+  50% {
+    transform: translate(-6px, 5px);
+  }
+
+  75% {
+    transform: translate(4px, 6px);
+  }
 }
 
 @media (max-width: 820px) {
