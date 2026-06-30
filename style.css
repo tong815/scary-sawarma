@@ -16,6 +16,12 @@ body.scare-active {
   animation: screenShake 0.18s linear 4;
 }
 
+body.danger-high {
+  background:
+    radial-gradient(circle at center, rgba(160, 0, 0, 0.35), transparent 28rem),
+    linear-gradient(135deg, #070607, #21090b 48%, #050505);
+}
+
 button {
   font: inherit;
 }
@@ -70,7 +76,10 @@ h2 {
 
 .restart-button,
 .task-button,
-.map-area {
+.item-button,
+.escape-button,
+.map-area,
+.encounter-actions button {
   min-height: 48px;
   border: 0;
   border-radius: 6px;
@@ -101,7 +110,8 @@ h2 {
   text-transform: uppercase;
 }
 
-.fear-track {
+.fear-track,
+.anger-track {
   width: 100%;
   height: 14px;
   overflow: hidden;
@@ -114,6 +124,13 @@ h2 {
   width: 0%;
   height: 100%;
   background: linear-gradient(90deg, #e9b55f, #e05b45, #b50921);
+  transition: width 0.25s ease;
+}
+
+.anger-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #7d5fff, #d33d3d, #ff0000);
   transition: width 0.25s ease;
 }
 
@@ -147,6 +164,10 @@ h2 {
   min-height: 480px;
 }
 
+.danger-high .restaurant-map {
+  filter: brightness(0.72) contrast(1.18);
+}
+
 .map-area {
   position: relative;
   padding: 18px;
@@ -154,6 +175,10 @@ h2 {
   background: #312326;
   border: 2px solid #5d3d35;
   font-size: 1.15rem;
+}
+
+.map-area.monster-near {
+  box-shadow: inset 0 0 26px rgba(255, 0, 0, 0.45);
 }
 
 .map-area:hover,
@@ -198,7 +223,9 @@ h2 {
   gap: 10px;
 }
 
-.task-button {
+.task-button,
+.item-button,
+.escape-button {
   width: 100%;
   padding: 12px;
   color: #f8ead4;
@@ -207,20 +234,81 @@ h2 {
   border: 1px solid #74413a;
 }
 
-.task-button:hover:not(:disabled) {
+.task-button:hover:not(:disabled),
+.item-button:hover:not(:disabled),
+.escape-button:hover:not(:disabled) {
   background: #6d382f;
 }
 
-.task-button:disabled {
+.task-button:disabled,
+.item-button:disabled {
   color: #8f8780;
   cursor: not-allowed;
   background: #272124;
   text-decoration: line-through;
 }
 
+.item-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.escape-button {
+  margin-bottom: 16px;
+  color: #160d0d;
+  text-align: center;
+  background: #ffd58a;
+  border: 1px solid #ffefbb;
+}
+
+.hidden {
+  display: none !important;
+}
+
 .game-over .restaurant-map,
 .game-over .task-list {
   opacity: 0.55;
+}
+
+.encounter-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.78);
+}
+
+.encounter-box {
+  width: min(560px, 100%);
+  padding: 24px;
+  border: 2px solid #d33d3d;
+  background: #160d10;
+  box-shadow: 0 0 48px rgba(180, 0, 0, 0.5);
+  animation: screenShake 0.18s linear 4;
+}
+
+.encounter-box h2 {
+  color: #ffdad2;
+}
+
+.encounter-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.encounter-actions button {
+  padding: 12px;
+  color: #fff3e4;
+  background: #652c2c;
+}
+
+.encounter-actions button:hover {
+  background: #8b3434;
 }
 
 .jump-scare {
@@ -340,5 +428,9 @@ h2 {
     border-top: 1px solid #5e3530;
     border-left: 0;
     padding: 18px 0 0;
+  }
+
+  .encounter-actions {
+    grid-template-columns: 1fr;
   }
 }
