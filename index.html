@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Night Shift Shawarma</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <section class="top-panel">
+      <div>
+        <p class="eyebrow">First Prototype</p>
+        <h1>Night Shift Shawarma</h1>
+      </div>
+      <button id="restartButton" class="restart-button">Restart</button>
+    </section>
+
+    <section class="status-panel">
+      <div>
+        <span class="label">Current Location</span>
+        <strong id="locationName">Counter</strong>
+      </div>
+      <div>
+        <span class="label">Progress</span>
+        <strong><span id="progressCount">0</span> / 5 tasks</strong>
+      </div>
+      <div>
+        <span class="label">Fear Meter</span>
+        <div class="fear-track">
+          <div id="fearFill" class="fear-fill"></div>
+        </div>
+        <strong id="fearNumber">0 / 100</strong>
+      </div>
+    </section>
+
+    <section class="message-panel">
+      <p id="eventMessage">The late-night shift has started. Everything feels normal... for now.</p>
+    </section>
+
+    <section class="play-area">
+      <div class="restaurant-map" aria-label="Restaurant layout">
+        <button class="map-area counter active" data-location="Counter">Counter</button>
+        <button class="map-area kitchen" data-location="Kitchen">Kitchen</button>
+        <button class="map-area storage" data-location="Storage Room">Storage Room</button>
+        <button class="map-area dining" data-location="Dining Area">Dining Area</button>
+        <button class="map-area back-door" data-location="Back Door">Back Door</button>
+      </div>
+
+      <aside class="task-panel">
+        <h2>Night Tasks</h2>
+        <div id="taskList" class="task-list"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
